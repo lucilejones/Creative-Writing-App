@@ -1,0 +1,29 @@
+{
+  "name": "level-6-full-stack-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucilejones/Creative-Writing-Prompt-Exercises-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucilejones/Creative-Writing-Prompt-Exercises-App/issues"
+  },
+  "homepage": "https://github.com/lucilejones/Creative-Writing-Prompt-Exercises-App#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-jwt": "^7.7.7",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
+    "morgan": "^1.10.0"
+  }
+}
