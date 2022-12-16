@@ -27,6 +27,17 @@ entryRouter.get("/user", (req, res, next) => {
     })
 })
 
+// get all published entries
+entryRouter.get("/publish", (req, res, next) => {
+    Entry.find({ isPublished: true }, (err, entries) => {
+        if(err){
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(entries)
+    })
+})
+
 // add new entry
 entryRouter.post("/", (req, res, next) => {
     req.body.postedBy = req.auth._id
@@ -77,7 +88,21 @@ entryRouter.put("/:entryId", (req, res, next) => {
     )
 })
 
-// add a route to change isPublished to true
+// toggle isPublished between true/false
+entryRouter.put("/publish/:entryId", (req, res, next) => {
+    Entry.findById({ _id: req.params.entryId}, (err, entry) => {
+        entry.isPublished = !entry.isPublished
+        entry.save( (err, updatedEntry) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(updatedEntry)
+        })
+    })
+})
+// have a button that toggles a "/published" route and also toggles the btn text
+// from publish to unpublish
 
 
 

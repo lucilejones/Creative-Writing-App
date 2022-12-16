@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Navbar from './components/Navbar.js'
 import Auth from './components/Auth.js'
+import Profile from './components/Profile.js'
+import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
 
 
@@ -10,10 +13,17 @@ export default function App(){
 
   return (
     <>
+    {token && <Navbar logout={logout} />}
     <Routes>
       <Route 
         path="/"
-        element={<Auth />}
+        element={token ? <Navigate to="/profile" /> : <Auth />}
+      />
+      <Route 
+        path="/profile"
+        element={<ProtectedRoute token={token} redirectTo="/">
+          <Profile />
+        </ProtectedRoute>}
       />
     </Routes>
     </>
