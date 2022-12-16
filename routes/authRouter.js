@@ -1,7 +1,7 @@
 const express = require('express')
 const authRouter = express.Router()
 const User = require('../models/user.js')
-const jwt = require(jsonwebtoken)
+const jwt = require('jsonwebtoken')
 
 // signup route
 authRouter.post("/signup", (req, res, next) => {

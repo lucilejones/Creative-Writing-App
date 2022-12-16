@@ -43,8 +43,8 @@ commentRouter.post("/:entryId", (req, res, next) => {
 // delete a comment
 commentRouter.delete("/:commentId", (req, res, next) => {
     Comment.findOneAndDelete(
-        { _id: req.params.commentId, user: req.auth._id },
-        // would user need to actually be commentedBy?
+        { _id: req.params.commentId, commentedBy: req.auth._id },
+        // user or commentedBy?
         (err, deletedComment) => {
             if(err){
                 res.status(500)
@@ -58,8 +58,8 @@ commentRouter.delete("/:commentId", (req, res, next) => {
 // update a commment
 commentRouter.put("/:commentId", (req, res, next) => {
     Comment.findOneAndUpdate(
-        { _id: req.params.commentId, user: req.auth._id },
-        // would user need to actually be commentedBy?
+        { _id: req.params.commentId, commentedBy: req.auth._id },
+        // user or commentedBy?
         req.body,
         {new: true},
         (err, updatedComment) => {

@@ -1,7 +1,7 @@
 const express = require('express')
 const entryRouter = express.Router()
 const Entry = require('../models/entry.js')
-// const Comment = require()
+const Comment = require('../models/comment.js')
 
 // get all entries
 entryRouter.get("/", (req, res, next) => {
@@ -42,8 +42,8 @@ entryRouter.post("/", (req, res, next) => {
 
 // delete entry (plus all the comments attached to it)
 entryRouter.delete("/:entryId", (req, res, next) => {
-    Entry.deleteOne({ _id: req.params.entryId, user: req.auth._id},
-        // would user need to be postedBy?
+    Entry.deleteOne({ _id: req.params.entryId, postedBy: req.auth._id},
+        // user or postedBy?
         (err, deletedEntry) => {
             if(err){
                 res.status(500)
@@ -56,15 +56,15 @@ entryRouter.delete("/:entryId", (req, res, next) => {
                         return next(err)
                     }
                 })
-            return res.status(200).send(`Successfully deleted Entry ${deletedEntry.title}`)
+            return res.status(200).send(`Successfully deleted Entry.`)
         })
 })
 
 // update entry (edit and update)
 entryRouter.put("/:entryId", (req, res, next) => {
     Entry.findOneAndUpdate(
-        { _id: req.params.entryId, user: req.auth._id },
-        // would user need to be postedBy?
+        { _id: req.params.entryId, postedBy: req.auth._id },
+        // user or postedBy?
         req.body,
         { new: true },
         (err, updatedEntry) => {
