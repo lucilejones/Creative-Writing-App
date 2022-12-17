@@ -1,11 +1,15 @@
 import React, { useState, useContext } from 'react'
+import { EntryContext } from '../context/EntryProvider.js'
+import { UserContext } from '../context/UserProvider.js'
 // import CommentForm
 // import CommentList
-import { UserContext } from '../context/UserProvider'
-// import { EntryContext } from '../context/EntryProvider'
+
+
 
 export default function Entry(props) {
-    const {title, textBody, postedBy, _id } = props
+    const [togglePublish, setTogglePublish] = useState(false)
+    const { title, textBody, postedBy, isPublished, _id } = props
+    // console.log(postedBy.username)
 
     const {
         user: {
@@ -13,11 +17,19 @@ export default function Entry(props) {
         }
     } = useContext(UserContext)
 
+    const { togglePublishEntry } = useContext(EntryContext)
+
+    function handlePublish(_id){
+        togglePublishEntry(_id)
+    }
+
+
     return (
         <div>
             <h1>{title}</h1>
             <h3>{textBody}</h3>
-            <p>{postedBy}</p>
+            {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
+            {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
         </div>
     )
 }
