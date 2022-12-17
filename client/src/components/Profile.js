@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-// import EntryForm from './EntryForm.js'
+import EntryForm from './EntryForm.js'
 import EntryList from './EntryList.js'
 import { UserContext } from '../context/UserProvider.js'
 import { EntryContext } from '../context/EntryProvider'
@@ -11,7 +11,7 @@ export default function Profile() {
         }
     } = useContext(UserContext)
 
-    const { entries, getUserEntries } = useContext(EntryContext)
+    const { entries, getUserEntries, addEntry } = useContext(EntryContext)
 
     useEffect(() => {
         getUserEntries()
@@ -21,6 +21,7 @@ export default function Profile() {
         <>
             <div>
                 <h1>Welcome {username}!</h1>
+                <EntryForm addEntry={addEntry}/>
             </div>
             <EntryList entries={entries} />
         </>

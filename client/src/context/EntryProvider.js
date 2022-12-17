@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // import { UserContext } from '../context/UserProvider.js'
 import axios from 'axios'
 
@@ -27,24 +27,38 @@ export default function EntryProvider(props) {
 
     // }
 
+    const navigate = useNavigate()
+
     function getUserEntries() {
         userAxios.get("/api/entry/user")
-            .then(res => setEntries(prevEntries => [...prevEntries, res.data]))
+            .then(res => {
+                setEntries(res.data)
+            })
             .catch(err => console.log(err.response.data.errMsg))
     }
 
-    // .then(res => setEntries(prevEntries => [...prevEntries, res.data]))
-
     function getPublishedEntries() {
-
+        userAxios.get("/api/entry/publish")
+            .then(res => {
+                setEntries(res.data)
+            })
+            .catch(err => console.log(err.response.data.errMsg))
     }
 
-    function addEntry() {
-
+    function addEntry(newEntry) {
+        userAxios.post("/api/entry", newEntry)
+            .then(res => {
+                setEntries(prevEntries => [...prevEntries, res.data])
+            })
+            .catch(err => console.log(err.response.data.errMsg))
     }
 
-    function publishEntry() {
-
+    function togglePublishEntry(entryId) {
+        userAxios.put(`/api/entry/publish/${entryId}`)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.response.data.errMsg))
+        navigate("/public")
+        getPublishedEntries()
     }
 
     function deleteEntry() {
@@ -62,7 +76,7 @@ export default function EntryProvider(props) {
                 getUserEntries,
                 getPublishedEntries,
                 addEntry,
-                publishEntry,
+                togglePublishEntry,
                 deleteEntry
             }}
         >
