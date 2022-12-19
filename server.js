@@ -22,6 +22,7 @@ app.use('/auth', require('./routes/authRouter.js'))
 app.use('/api', expressjwt({secret: process.env.SECRET, algorithms: ['HS256']}))
 app.use('/api/entry', require('./routes/entryRouter.js'))
 app.use('/api/posted-prompt', require('./routes/postedPromptRouter.js'))
+app.use('/api/saved-prompt', require('./routes/savedPromptRouter.js'))
 app.use('/api/comment', require('./routes/commentRouter.js'))
 
 
