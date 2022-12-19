@@ -66,9 +66,11 @@ export default function EntryProvider(props) {
 
     }
 
-    // function updateEntry() {
-
-    // }
+    function updateEntry(entryId, update) {
+        userAxios.put(`/api/entry/${entryId}`, update)
+         .then(setEntries(prevEntries => prevEntries.map(entry => entry._id === entryId ?
+            {...entry, title: update.title, textBody: update.textBody} : entry)))
+    }
 
     function getPostedPrompts() {
         userAxios.get("/api/posted-prompt")
@@ -86,6 +88,7 @@ export default function EntryProvider(props) {
                 getPublishedEntries,
                 addEntry,
                 togglePublishEntry,
+                updateEntry,
                 deleteEntry,
                 postedPrompts,
                 getPostedPrompts
