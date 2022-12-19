@@ -18,6 +18,7 @@ userAxios.interceptors.request.use(config => {
 export default function EntryProvider(props) {
     const [entries, setEntries] = useState([])
     const [postedPrompts, setPostedPrompts] = useState([])
+    const [savedPrompts, setSavedPrompts] = useState([])
 
     // const {
     //     user: {
@@ -72,11 +73,37 @@ export default function EntryProvider(props) {
             {...entry, title: update.title, textBody: update.textBody} : entry)))
     }
 
+    function addPostedPrompt(newPostedPrompt) {
+        userAxios.post("/api/entry", newPostedPrompt)
+            .then(res => {
+                setPostedPrompts(prevPostedPropmts => [...prevPostedPropmts, res.data])
+            })
+            .catch(err => console.log(err.response.data.errMsg))
+    }
+
     function getPostedPrompts() {
         userAxios.get("/api/posted-prompt")
             .then(res => {
                 setPostedPrompts(res.data)
             })
+            .catch(err => console.log(err.response.data.errMsg))
+    }
+
+    function getUserSavedPrompts() {
+        userAxios.get("/api/saved-prompt/user")
+            .then(res => {
+                setSavedPrompts(res.data)
+            })
+            .catch(err => console.log(err.response.data.errMsg))
+    }
+
+    function saveAPostedPrompt(text, postedBy, _id) {
+        const savedPrompt = {
+            text: text,
+            postedBy: postedBy
+        }
+        userAxios.post("/api/saved-prompt", savedPrompt)
+            .then(res => console.log(res.data))
             .catch(err => console.log(err.response.data.errMsg))
     }
 
@@ -91,7 +118,11 @@ export default function EntryProvider(props) {
                 updateEntry,
                 deleteEntry,
                 postedPrompts,
-                getPostedPrompts
+                getPostedPrompts,
+                addPostedPrompt,
+                saveAPostedPrompt,
+                savedPrompts,
+                getUserSavedPrompts
             }}
         >
             {props.children}

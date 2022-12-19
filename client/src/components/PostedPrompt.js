@@ -3,7 +3,7 @@ import { EntryContext } from '../context/EntryProvider.js'
 import { UserContext } from '../context/UserProvider.js'
 
 
-export default function Entry(props) {
+export default function PostedPrompt(props) {
     const { text, postedBy, _id } = props
     // console.log(postedBy.username)
 
@@ -13,11 +13,13 @@ export default function Entry(props) {
         }
     } = useContext(UserContext)
 
+    const {saveAPostedPrompt} = useContext(EntryContext)
 
     return (
         <div>
             <h3>{text}</h3>
             {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
+            {postedBy.username !== username && <button onClick={() => saveAPostedPrompt(text, postedBy, _id)}>Save to my list of prompts</button>}
         </div>
     )
 }

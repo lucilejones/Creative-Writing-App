@@ -25,6 +25,7 @@ export default function Profile() {
             <h1>Welcome {username}!</h1>
             <Link to="/profile/profile-forms">Add new prompts and entries</Link>
             <Link to="/profile">My saved entries</Link>
+            <Link to="/profile/saved-prompts">My saved prompts</Link>
             {/* <div>
                 <EntryForm addEntry={addEntry}/>
             </div> */}

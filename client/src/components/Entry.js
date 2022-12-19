@@ -67,7 +67,8 @@ export default function Entry(props) {
                     <h3>{textBody}</h3>
                     {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
                     {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
-                    <button onClick={handleEditMode}>Edit</button>
+                    {postedBy.username === username && <button onClick={handleEditMode}>Edit</button>}
+                    {/* move this edit button to the ExpandedEntry component? */}
                 </div>
             }
         </>

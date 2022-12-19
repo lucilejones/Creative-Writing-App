@@ -10,6 +10,7 @@ import PublishedEntries from './components/PublishedEntries.js'
 import PostedPrompts from './components/PostedPrompts.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
+import SavedPrompts from './components/SavedPrompts.js'
 
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         </ProtectedRoute>} >
           <Route path="profile-forms" element={<ProfileForms />} />
           <Route index element={<UserEntries />} />
+          <Route path="saved-prompts" element={<SavedPrompts />} />
         </Route>
 
         {/* <Route 
