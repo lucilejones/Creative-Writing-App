@@ -15,9 +15,7 @@ export default function Public(){
 
     return (
         <div>
-            {/* <Link to="/public/posted-prompts">Add new prompts and entries</Link> */}
-            {/* change below link to posted prompt once have the PromptList and Prompt components */}
-            <Link to="/public/published-forms">Enter forms</Link>
+            <Link to="/public/posted-prompts">View posted prompts</Link>
             <Link to="/public">View all published entries</Link>
             {/* <h3>All published entries</h3> */}
             {/* <EntryList entries={entries} /> */}

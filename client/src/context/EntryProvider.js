@@ -17,6 +17,7 @@ userAxios.interceptors.request.use(config => {
 
 export default function EntryProvider(props) {
     const [entries, setEntries] = useState([])
+    const [postedPrompts, setPostedPrompts] = useState([])
 
     // const {
     //     user: {
@@ -69,6 +70,14 @@ export default function EntryProvider(props) {
 
     // }
 
+    function getPostedPrompts() {
+        userAxios.get("/api/posted-prompt")
+            .then(res => {
+                setPostedPrompts(res.data)
+            })
+            .catch(err => console.log(err.response.data.errMsg))
+    }
+
     return (
         <EntryContext.Provider
             value={{
@@ -77,7 +86,9 @@ export default function EntryProvider(props) {
                 getPublishedEntries,
                 addEntry,
                 togglePublishEntry,
-                deleteEntry
+                deleteEntry,
+                postedPrompts,
+                getPostedPrompts
             }}
         >
             {props.children}

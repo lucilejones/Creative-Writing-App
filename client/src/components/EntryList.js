@@ -25,8 +25,3 @@ export default function EntryList(props) {
     //     </div>
     // )
 }
-
-
-// myList.sort(function(x, y){
-//     return x.timestamp - y.timestamp;
-// })

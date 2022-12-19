@@ -7,6 +7,7 @@ import ProfileForms from './components/ProfileForms.js'
 import UserEntries from './components/UserEntries.js'
 import Public from './components/Public.js'
 import PublishedEntries from './components/PublishedEntries.js'
+import PostedPrompts from './components/PostedPrompts.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
 
@@ -40,7 +41,7 @@ export default function App() {
         <Route path="/public" element={<ProtectedRoute token={token} redirectTo="/">
           <Public />
         </ProtectedRoute>} >
-          <Route path="published-forms" element={<ProfileForms />}/>
+          <Route path="posted-prompts" element={<PostedPrompts />}/>
           <Route index element={<PublishedEntries />}/>
         </Route>
         {/* <Route
