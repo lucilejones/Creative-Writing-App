@@ -7,6 +7,7 @@ import ProfileForms from './components/ProfileForms.js'
 import UserEntries from './components/UserEntries.js'
 import Public from './components/Public.js'
 import PublishedEntries from './components/PublishedEntries.js'
+import ExpandedEntry from './components/ExpandedEntry.js'
 import PostedPrompts from './components/PostedPrompts.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
@@ -33,18 +34,25 @@ export default function App() {
           <Route path="saved-prompts" element={<SavedPrompts />} />
         </Route>
 
-        {/* <Route 
-        path="/profile"
-        element={<ProtectedRoute token={token} redirectTo="/">
-          <Profile />
-        </ProtectedRoute>}
-      /> */}
+        {/* <Route
+          path="/profile"
+          element={<ProtectedRoute token={token} redirectTo="/">
+            <Profile />
+          </ProtectedRoute>}
+        /> */}
+
+        <Route
+          path="/entry/:entryId"
+          element={<ProtectedRoute token={token} redirectTo="/">
+            <ExpandedEntry />
+          </ProtectedRoute>}
+        />
 
         <Route path="/public" element={<ProtectedRoute token={token} redirectTo="/">
           <Public />
         </ProtectedRoute>} >
-          <Route path="posted-prompts" element={<PostedPrompts />}/>
-          <Route index element={<PublishedEntries />}/>
+          <Route path="posted-prompts" element={<PostedPrompts />} />
+          <Route index element={<PublishedEntries />} />
         </Route>
         {/* <Route
           path="/public"

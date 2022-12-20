@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const initIput = {
+    text: ""
+}
 
 export default function PromptForm(props){
-    const [input, setInput] = useState("")
+    const navigate = useNavigate()
+    const [input, setInput] = useState(initIput)
     const { addPostedPrompt } = props
 
     function handleChange(e){
@@ -16,6 +22,7 @@ export default function PromptForm(props){
         e.preventDefault()
         addPostedPrompt(input)
         setInput("")
+        navigate("/public/posted-prompts")
     }
 
     const {text} = input
@@ -29,7 +36,7 @@ export default function PromptForm(props){
                 onChange={handleChange}
                 placeholder="submit a new prompt"
             />
-            <buton>Add Prompt</buton>
+            <button>Add Prompt</button>
         </form>
     )
 }

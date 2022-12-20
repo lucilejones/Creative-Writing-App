@@ -6,6 +6,9 @@ const entrySchema = new Schema({
         type: String,
         required: true
     },
+    summary: {
+        type: String
+    },
     textBody: {
         type: String,
         required: true

@@ -1,16 +1,13 @@
 import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { EntryContext } from '../context/EntryProvider.js'
 import { UserContext } from '../context/UserProvider.js'
 // import CommentForm
 // import CommentList
 
-
-
 export default function Entry(props) {
-    // const initIputs = {...props}
-    const [togglePublish, setTogglePublish] = useState(false)
     const [editMode, setEditMode] = useState(false)
-    const { title, textBody, postedBy, isPublished, _id } = props
+    const { title, textBody, summary, postedBy, isPublished, _id } = props
     const [updatedEntry, setUpdatedEntry] = useState({...props})
 
     const {
@@ -19,7 +16,7 @@ export default function Entry(props) {
         }
     } = useContext(UserContext)
 
-    const { togglePublishEntry, updateEntry } = useContext(EntryContext)
+    const { togglePublishEntry, updateEntry, setOneEntry } = useContext(EntryContext)
 
     function handlePublish(_id) {
         togglePublishEntry(_id)
@@ -54,6 +51,13 @@ export default function Entry(props) {
                         name="title"
                         value={updatedEntry.title}
                     />
+                    <input 
+                        type="text"
+                        placeholder={summary}
+                        onChange={handleEntryChange}
+                        name="summary"
+                        value={updatedEntry.summary}
+                    />
                     <textarea
                         placeholder={textBody}
                         onChange={handleEntryChange}
@@ -63,8 +67,10 @@ export default function Entry(props) {
                     <button onClick={save}>Save</button>
                 </div> :
                 <div>
-                    <h1>{title}</h1>
-                    <h3>{textBody}</h3>
+                    {/* <h1>{title}</h1> */}
+                    <Link to ={`/entry/${_id}`} onClick={() => setOneEntry(props)}>{title}</Link>
+                    {summary && <p>Summary: {summary}</p>}
+                    <p>{textBody}</p>
                     {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
                     {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
                     {postedBy.username === username && <button onClick={handleEditMode}>Edit</button>}

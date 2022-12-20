@@ -29,6 +29,20 @@ entryRouter.get("/user", (req, res, next) => {
         })
 })
 
+// get details for one specific entry
+entryRouter.get("/expanded-entry/:entryId", (req, res, next) => {
+    Entry.findOne({ _id: req.params.entryId })
+        .populate("postedBy", "username")
+        .exec((err, entry) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(entry)
+        })
+})
+
+
 // get all published entries
 entryRouter.get("/publish", (req, res, next) => {
     Entry.find({ isPublished: true })
