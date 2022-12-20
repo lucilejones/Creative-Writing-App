@@ -19,6 +19,7 @@ export default function EntryProvider(props) {
     const [entries, setEntries] = useState([])
     const [postedPrompts, setPostedPrompts] = useState([])
     const [savedPrompts, setSavedPrompts] = useState([])
+    const [oneEntry, setOneEntry] = useState({})
 
     // const {
     //     user: {
@@ -67,6 +68,14 @@ export default function EntryProvider(props) {
 
     }
 
+    function getEntryDetails(entryId) {
+        userAxios.get(`/api/entry/expanded-entry/${entryId}`)
+            .then(res => console.log(res.data))
+            // .then(res => console.log(res.data))
+            .catch(err => console.log(err.response.data.errMsg))
+    }
+    // change to res => setOneEntry(res.data)
+
     function updateEntry(entryId, update) {
         userAxios.put(`/api/entry/${entryId}`, update)
          .then(setEntries(prevEntries => prevEntries.map(entry => entry._id === entryId ?
@@ -74,7 +83,7 @@ export default function EntryProvider(props) {
     }
 
     function addPostedPrompt(newPostedPrompt) {
-        userAxios.post("/api/entry", newPostedPrompt)
+        userAxios.post("/api/posted-prompt", newPostedPrompt)
             .then(res => {
                 setPostedPrompts(prevPostedPropmts => [...prevPostedPropmts, res.data])
             })
@@ -115,6 +124,9 @@ export default function EntryProvider(props) {
                 getPublishedEntries,
                 addEntry,
                 togglePublishEntry,
+                oneEntry,
+                setOneEntry,
+                getEntryDetails,
                 updateEntry,
                 deleteEntry,
                 postedPrompts,
