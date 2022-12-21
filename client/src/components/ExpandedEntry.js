@@ -7,10 +7,11 @@ export default function () {
     // const params = useParams()
     // console.log(params.entryId)
     const [editMode, setEditMode] = useState(false)
-    const { oneEntry, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
+    const { oneEntry, setOneEntry, expandedId, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
     // const { title, textBody, summary, postedBy, isPublished, _id } = props
     console.log(oneEntry, "does this recognize oneEntry")
     const [updatedEntry, setUpdatedEntry] = useState(oneEntry)
+    
 
     const {
         user: {
@@ -18,8 +19,15 @@ export default function () {
         }
     } = useContext(UserContext)
 
+    useEffect(() => {
+        return () => {
+            localStorage.setItem("oneEntry", JSON.stringify(oneEntry))
+        }
+    }, [expandedId])
 
     useEffect(() => {
+        // setOneEntry(JSON.parse(localStorage.getItem("oneEntry")))
+        // console.log(oneEntry._id)
         getEntryDetails(oneEntry._id)
     }, [])
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { EntryContext } from '../context/EntryProvider.js'
 import { UserContext } from '../context/UserProvider.js'
@@ -9,6 +9,7 @@ export default function Entry(props) {
     const [editMode, setEditMode] = useState(false)
     const { title, textBody, summary, postedBy, isPublished, _id } = props
     const [updatedEntry, setUpdatedEntry] = useState({...props})
+    const [expandedId, setExpandedId] = useState(false)
 
     const {
         user: {
@@ -18,9 +19,9 @@ export default function Entry(props) {
 
     const { togglePublishEntry, updateEntry, setOneEntry } = useContext(EntryContext)
 
-    function handlePublish(_id) {
-        togglePublishEntry(_id)
-    }
+    // function handlePublish(_id) {
+    //     togglePublishEntry(_id)
+    // }
 
     function handleEntryChange(e) {
         const { name, value } = e.target
@@ -30,13 +31,18 @@ export default function Entry(props) {
         }))
     }
 
-    function handleEditMode() {
-        setEditMode(prevEditMode => !prevEditMode)
-    }
+    // function handleEditMode() {
+    //     setEditMode(prevEditMode => !prevEditMode)
+    // }
 
     function save() {
         updateEntry(_id, updatedEntry)
         setEditMode(prevEditMode => !prevEditMode)
+    }
+
+    function expandToOneEntry() {
+        setOneEntry(props)
+        setExpandedId(prevExpandedId => !prevExpandedId)
     }
 
 
@@ -67,11 +73,13 @@ export default function Entry(props) {
                     <button onClick={save}>Save</button>
                 </div> :
                 <div>
-                    {/* <h1>{title}</h1> */}
-                    <Link to ={`/entry/${_id}`} onClick={() => setOneEntry(props)}>{title}</Link>
+                    {/* <Link to ={`/entry/${_id}`} onClick={() => setOneEntry(props)}>{title}</Link> */}
+                    <Link to ={`/entry/${_id}`} onClick={() => expandToOneEntry(_id)}>{title}</Link>
                     {summary && <p>Summary: {summary}</p>}
-                    {/* <p>{textBody}</p> */}
                     <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
+                    
+                    {/* <h1>{title}</h1> */}
+                    {/* <p>{textBody}</p> */}
                     {/* {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
                     {postedBy.username === username && <button onClick={handleEditMode}>Edit</button>} */}
                     {/* move this edit button to the ExpandedEntry component? */}
