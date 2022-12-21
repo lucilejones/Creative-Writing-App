@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { UserContext } from '../context/UserProvider.js'
 import axios from 'axios'
@@ -19,7 +19,8 @@ export default function EntryProvider(props) {
     const [entries, setEntries] = useState([])
     const [postedPrompts, setPostedPrompts] = useState([])
     const [savedPrompts, setSavedPrompts] = useState([])
-    const [oneEntry, setOneEntry] = useState({})
+    const [oneEntry, setOneEntry] = useState(JSON.parse(localStorage.getItem("oneEntry")))
+    
 
     // const {
     //     user: {
@@ -29,6 +30,8 @@ export default function EntryProvider(props) {
     // function getAllEntries() {
 
     // }
+
+    
 
     const navigate = useNavigate()
 
@@ -87,7 +90,7 @@ export default function EntryProvider(props) {
 
     function updateEntry(entryId, update) {
         userAxios.put(`/api/entry/${entryId}`, update)
-            .then(res => setOneEntry(prevOneEntry => ({...prevOneEntry, title: update.title, summary: update.summary, texBody: update.textBody})))
+            .then(res => setOneEntry(prevOneEntry => ({...prevOneEntry, title: update.title, summary: update.summary, textBody: update.textBody})))
     }
 
     function addPostedPrompt(newPostedPrompt) {
