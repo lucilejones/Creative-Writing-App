@@ -4,12 +4,12 @@ import { EntryContext } from '../context/EntryProvider'
 import { UserContext } from '../context/UserProvider'
 
 export default function () {
-    const params = useParams()
-    console.log(params.entryId)
+    // const params = useParams()
+    // console.log(params.entryId)
     const [editMode, setEditMode] = useState(false)
-    const { oneEntry, togglePublishEntry, updateEntry, getEntryDetails } = useContext(EntryContext)
+    const { oneEntry, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
     // const { title, textBody, summary, postedBy, isPublished, _id } = props
-    // console.log(oneEntry, "does this recognize oneEntry")
+    console.log(oneEntry, "does this recognize oneEntry")
     const [updatedEntry, setUpdatedEntry] = useState(oneEntry)
 
     const {
@@ -20,7 +20,7 @@ export default function () {
 
 
     useEffect(() => {
-        getEntryDetails(params.entryId)
+        getEntryDetails(oneEntry._id)
     }, [])
 
     function handlePublish() {
@@ -42,7 +42,7 @@ export default function () {
     function save() {
         updateEntry(oneEntry._id, updatedEntry)
         setEditMode(prevEditMode => !prevEditMode)
-        getEntryDetails(params.entryId)
+        getEntryDetails(oneEntry._id)
     }
 
     return (
@@ -76,9 +76,10 @@ export default function () {
                     <h1>{oneEntry.title}</h1>
                     <p>{oneEntry.summary}</p>
                     <p>{oneEntry.textBody}</p>
-                    {oneEntry.postedBy.username !== username && <p>posted by: {oneEntry.postedBy.username}</p>}
-                    {oneEntry.postedBy.username === username && <button onClick={() => handlePublish(oneEntry._id)}>{oneEntry.isPublished ? "Unpublish" : "Publish"}</button>}
-                    {oneEntry.postedBy.username === username && <button onClick={handleEditMode}>Edit</button>}
+                    <p>posted by: {oneEntry.postedBy.username === username ? "you" : oneEntry.postedBy.username}</p>
+                    {oneEntry.postedBy?.username === username && <button onClick={() => handlePublish(oneEntry._id)}>{oneEntry.isPublished ? "Unpublish" : "Publish"}</button>}
+                    {oneEntry.postedBy?.username === username && <button onClick={handleEditMode}>Edit</button>}
+                    {oneEntry.postedBy?.username === username && <button onClick={() => deleteEntry(oneEntry._id)}>Delete</button>}
                 </div>
             }
 

@@ -18,8 +18,10 @@ export default function PostedPrompt(props) {
     return (
         <div>
             <h3>{text}</h3>
-            {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
-            {postedBy.username !== username && <button onClick={() => saveAPostedPrompt(text, postedBy, _id)}>Save to my list of prompts</button>}
+            <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
+            <button onClick={() => saveAPostedPrompt(text, postedBy, _id)}>Save to my list of prompts</button>
         </div>
     )
 }
+
+// {oneEntry.isPublished ? "Unpublish" : "Publish"}

@@ -13,13 +13,16 @@ export default function SavedPrompt(props) {
         }
     } = useContext(UserContext)
 
+    const { deleteSavedPrompt } = useContext(EntryContext)
+
     
 
 
     return (
         <div>
             <h3>{text}</h3>
-            {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
+            <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
+            <button onClick={() => deleteSavedPrompt(_id)}>Delete</button>
         </div>
     )
 }

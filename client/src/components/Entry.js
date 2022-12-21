@@ -70,10 +70,10 @@ export default function Entry(props) {
                     {/* <h1>{title}</h1> */}
                     <Link to ={`/entry/${_id}`} onClick={() => setOneEntry(props)}>{title}</Link>
                     {summary && <p>Summary: {summary}</p>}
-                    <p>{textBody}</p>
-                    {postedBy.username !== username && <p>posted by: {postedBy.username}</p>}
-                    {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
-                    {postedBy.username === username && <button onClick={handleEditMode}>Edit</button>}
+                    {/* <p>{textBody}</p> */}
+                    <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
+                    {/* {postedBy.username === username && <button onClick={() => handlePublish(_id)}>{isPublished ? "Unpublish" : "Publish"}</button>}
+                    {postedBy.username === username && <button onClick={handleEditMode}>Edit</button>} */}
                     {/* move this edit button to the ExpandedEntry component? */}
                 </div>
             }
