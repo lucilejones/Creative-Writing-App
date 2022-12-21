@@ -64,8 +64,11 @@ export default function EntryProvider(props) {
         getPublishedEntries()
     }
 
-    function deleteEntry() {
-
+    function deleteEntry(entryId) {
+        userAxios.delete(`/api/entry/${entryId}`)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.response.data.errMsg))
+        navigate("/profile")
     }
 
     function getEntryDetails(entryId) {
@@ -76,10 +79,15 @@ export default function EntryProvider(props) {
     }
     // change to res => setOneEntry(res.data)
 
+    // function updateEntry(entryId, update) {
+    //     userAxios.put(`/api/entry/${entryId}`, update)
+    //      .then(setEntries(prevEntries => prevEntries.map(entry => entry._id === entryId ?
+    //         {...entry, title: update.title, textBody: update.textBody} : entry)))
+    // }
+
     function updateEntry(entryId, update) {
         userAxios.put(`/api/entry/${entryId}`, update)
-         .then(setEntries(prevEntries => prevEntries.map(entry => entry._id === entryId ?
-            {...entry, title: update.title, textBody: update.textBody} : entry)))
+            .then(res => setOneEntry(prevOneEntry => ({...prevOneEntry, title: update.title, summary: update.summary, texBody: update.textBody})))
     }
 
     function addPostedPrompt(newPostedPrompt) {
@@ -116,6 +124,13 @@ export default function EntryProvider(props) {
             .catch(err => console.log(err.response.data.errMsg))
     }
 
+    function deleteSavedPrompt(savedPromptId) {
+        userAxios.delete(`/api/saved-prompt/${savedPromptId}`)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.response.data.errMsg))
+        getUserSavedPrompts()
+    }
+
     return (
         <EntryContext.Provider
             value={{
@@ -134,7 +149,8 @@ export default function EntryProvider(props) {
                 addPostedPrompt,
                 saveAPostedPrompt,
                 savedPrompts,
-                getUserSavedPrompts
+                getUserSavedPrompts,
+                deleteSavedPrompt
             }}
         >
             {props.children}
