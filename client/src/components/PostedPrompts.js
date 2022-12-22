@@ -9,14 +9,12 @@ export default function PostedPrompts(){
         getPostedPrompts
     } = useContext(EntryContext)
 
-    // console.log(postedPrompts)
-
     useEffect(() => {
         getPostedPrompts()
     }, [])
 
     return (
-        <div>
+        <div className="prompts-container">
             <h3>All posted prompts</h3>
             <PostedPromptList postedPrompts={postedPrompts} />
         </div>

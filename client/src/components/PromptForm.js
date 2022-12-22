@@ -5,38 +5,40 @@ const initIput = {
     text: ""
 }
 
-export default function PromptForm(props){
+export default function PromptForm(props) {
     const navigate = useNavigate()
     const [input, setInput] = useState(initIput)
     const { addPostedPrompt } = props
 
-    function handleChange(e){
-        const {name, value} = e.target
+    function handleChange(e) {
+        const { name, value } = e.target
         setInput(prevInput => ({
             ...prevInput,
             [name]: value
         }))
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
         addPostedPrompt(input)
         setInput("")
         navigate("/public/posted-prompts")
     }
 
-    const {text} = input
+    const { text } = input
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
+        <form onSubmit={handleSubmit} className="prompt-form">
+            <input
                 type="text"
                 name="text"
                 value={text}
                 onChange={handleChange}
                 placeholder="submit a new prompt"
             />
-            <button>Add Prompt</button>
+            <div>
+                <button>Add Prompt</button>
+            </div>
         </form>
     )
 }
