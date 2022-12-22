@@ -72,10 +72,10 @@ export default function Entry(props) {
                     />
                     <button onClick={save}>Save</button>
                 </div> :
-                <div>
+                <div className="saved-entry">
                     {/* <Link to ={`/entry/${_id}`} onClick={() => setOneEntry(props)}>{title}</Link> */}
-                    <Link to ={`/entry/${_id}`} onClick={() => expandToOneEntry(_id)}>{title}</Link>
-                    {summary && <p>Summary: {summary}</p>}
+                    <Link to ={`/entry/${_id}`} onClick={() => expandToOneEntry(_id)} className="title-link">{title}</Link>
+                    {summary && <p className="summary-text">Summary: {summary}</p>}
                     <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
                     
                     {/* <h1>{title}</h1> */}

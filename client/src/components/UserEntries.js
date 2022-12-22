@@ -3,7 +3,7 @@ import EntryList from './EntryList.js'
 import { UserContext } from '../context/UserProvider.js'
 import { EntryContext } from '../context/EntryProvider'
 
-export default function Entries(){
+export default function Entries() {
     // const {
     //     user: {
     //         username
@@ -18,10 +18,13 @@ export default function Entries(){
 
     return (
         <>
-            <div>
-                <p>Your saved entries</p>
+            <div className="entries-container">
+                <div>
+                    <p className="profile-title">Your saved entries</p>
+                    <EntryList entries={entries} />
+                </div>
             </div>
-            <EntryList entries={entries} />
+
         </>
     )
 }

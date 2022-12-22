@@ -13,7 +13,7 @@ export default function Public(){
     }, [])
 
     return (
-        <div>
+        <div className="entries-container">
             <h3>All published entries</h3>
             <EntryList entries={entries} />
         </div>

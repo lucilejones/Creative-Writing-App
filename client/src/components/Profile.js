@@ -22,10 +22,19 @@ export default function Profile() {
 
     return (
         <>
-            <h1>Welcome {username}!</h1>
-            <Link to="/profile/profile-forms">Add new prompts and entries</Link>
-            <Link to="/profile">My saved entries</Link>
-            <Link to="/profile/saved-prompts">My saved prompts</Link>
+            <div className="profile-container">
+                <h1 className="welcome">Welcome {username}!</h1>
+                <ul>
+                    <li>Options &#x2193;
+                        <ul className="dropdown">
+                            <li><Link className="link" to="/profile/profile-forms">Add new prompts and entries</Link></li>
+                            <li><Link className="link" to="/profile">My saved entries</Link></li>
+                            <li><Link className="link" to="/profile/saved-prompts">My saved prompts</Link></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
             {/* <div>
                 <EntryForm addEntry={addEntry}/>
             </div> */}
