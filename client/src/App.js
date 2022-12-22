@@ -18,7 +18,7 @@ export default function App() {
   const { token, logout } = useContext(UserContext)
 
   return (
-    <>
+    <div className="site">
       {token && <Navbar logout={logout} />}
       <Routes>
         <Route
@@ -61,7 +61,7 @@ export default function App() {
           </ProtectedRoute>}
         /> */}
       </Routes>
-    </>
+    </div>
   )
 }
 

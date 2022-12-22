@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AuthForm(props){
+export default function AuthForm(props) {
     const {
         handleChange,
         handleSubmit,
@@ -12,26 +12,28 @@ export default function AuthForm(props){
         }
     } = props
 
-    return(
+    return (
         <form onSubmit={handleSubmit}>
             <input
-                className='form-control my-2'
+                className=''
                 type="text"
                 value={username}
                 name="username"
                 onChange={handleChange}
                 placeholder="username"
             />
+            <br />
             <input
-                className='form-control my-2'
+                className=''
                 type="text"
                 value={password}
                 name="password"
                 onChange={handleChange}
                 placeholder="password"
             />
-            <button className='btn bg-light'>{ btnText }</button>
-            <p style={{color: "red"}}>{errMsg}</p>
+            <br />
+            <button className=''>{btnText}</button>
+            <p style={{ color: "red" }}>{errMsg}</p>
         </form>
     )
 }
