@@ -5,7 +5,6 @@ import { UserContext } from '../context/UserProvider.js'
 
 export default function PostedPrompt(props) {
     const { text, postedBy, _id } = props
-    // console.log(postedBy.username)
 
     const {
         user: {
@@ -16,12 +15,10 @@ export default function PostedPrompt(props) {
     const {saveAPostedPrompt} = useContext(EntryContext)
 
     return (
-        <div>
+        <div className="prompt">
             <h3>{text}</h3>
             <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
             <button onClick={() => saveAPostedPrompt(text, postedBy, _id)}>Save to my list of prompts</button>
         </div>
     )
 }
-
-// {oneEntry.isPublished ? "Unpublish" : "Publish"}

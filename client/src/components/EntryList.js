@@ -3,7 +3,6 @@ import Entry from './Entry.js'
 
 export default function EntryList(props) {
     const { entries } = props
-    // console.log(entries)
 
     const sortedList = [].concat(entries)
         .sort((a,b) => b.timestamp > a.timestamp ? 1 : -1)
@@ -16,12 +15,4 @@ export default function EntryList(props) {
             { sortedList }
         </div>
     )
-    // const displayList = entries.map(entry => 
-    //         <Entry key={entry._id} {...entry}/>)
-
-    // return (
-    //     <div>
-    //         {displayList}
-    //     </div>
-    // )
 }

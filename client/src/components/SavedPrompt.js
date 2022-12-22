@@ -1,11 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { EntryContext } from '../context/EntryProvider.js'
 import { UserContext } from '../context/UserProvider.js'
 
-
 export default function SavedPrompt(props) {
-    const { text, postedBy, savedBy, _id } = props
-    // console.log(postedBy.username)
+    const { text, postedBy, _id } = props
 
     const {
         user: {
@@ -19,8 +17,8 @@ export default function SavedPrompt(props) {
 
 
     return (
-        <div>
-            <h3>{text}</h3>
+        <div className="prompt">
+            <h5>{text}</h5>
             <p>posted by: {postedBy.username === username ? "you" : postedBy.username}</p>
             <button onClick={() => deleteSavedPrompt(_id)}>Delete</button>
         </div>

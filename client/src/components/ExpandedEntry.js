@@ -1,17 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { EntryContext } from '../context/EntryProvider'
 import { UserContext } from '../context/UserProvider'
 
 export default function () {
-    // const params = useParams()
-    // console.log(params.entryId)
     const [editMode, setEditMode] = useState(false)
-    const { oneEntry, setOneEntry, expandedId, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
-    // const { title, textBody, summary, postedBy, isPublished, _id } = props
+    const { oneEntry, expandedId, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
     console.log(oneEntry, "does this recognize oneEntry")
     const [updatedEntry, setUpdatedEntry] = useState(oneEntry)
-    
 
     const {
         user: {
@@ -26,8 +21,6 @@ export default function () {
     }, [expandedId])
 
     useEffect(() => {
-        // setOneEntry(JSON.parse(localStorage.getItem("oneEntry")))
-        // console.log(oneEntry._id)
         getEntryDetails(oneEntry._id)
     }, [])
 
@@ -56,43 +49,47 @@ export default function () {
     return (
         <>
             {editMode ?
-                <div>
-                    <input
-                        type="text"
-                        placeholder={oneEntry.title}
-                        onChange={handleEntryChange}
-                        name="title"
-                        value={updatedEntry.title}
-                    />
-                    <input
-                        type="text"
-                        placeholder={oneEntry.summary}
-                        onChange={handleEntryChange}
-                        name="summary"
-                        value={updatedEntry.summary}
-                    />
-                    <textarea
-                        placeholder={oneEntry.textBody}
-                        onChange={handleEntryChange}
-                        name="textBody"
-                        value={updatedEntry.textBody}
-                    />
-                    <button onClick={save}>Save</button>
+                <div className="edit-form-container">
+                    <div className="entry-form">
+                        <input
+                            type="text"
+                            placeholder={oneEntry.title}
+                            onChange={handleEntryChange}
+                            name="title"
+                            value={updatedEntry.title}
+                        />
+                        <input
+                            type="text"
+                            placeholder={oneEntry.summary}
+                            onChange={handleEntryChange}
+                            name="summary"
+                            value={updatedEntry.summary}
+                        />
+                        <textarea
+                            placeholder={oneEntry.textBody}
+                            onChange={handleEntryChange}
+                            name="textBody"
+                            value={updatedEntry.textBody}
+                        />
+                        <div className="button-container">
+                            <button onClick={save}>Save</button>
+                        </div>
+                    </div>
                 </div>
                 :
-                <div>
-                    <h1>{oneEntry.title}</h1>
-                    <p>{oneEntry.summary}</p>
-                    <p>{oneEntry.textBody}</p>
+                <div className="expanded-entry-container">
+                    <h1 className="expanded-title">{oneEntry.title}</h1>
+                    <p>summary: {oneEntry.summary}</p>
+                    <p className="expanded-text-body">{oneEntry.textBody}</p>
                     <p>posted by: {oneEntry.postedBy.username === username ? "you" : oneEntry.postedBy.username}</p>
-                    {oneEntry.postedBy?.username === username && <button onClick={() => handlePublish(oneEntry._id)}>{oneEntry.isPublished ? "Unpublish" : "Publish"}</button>}
-                    {oneEntry.postedBy?.username === username && <button onClick={handleEditMode}>Edit</button>}
-                    {oneEntry.postedBy?.username === username && <button onClick={() => deleteEntry(oneEntry._id)}>Delete</button>}
+                    <div className="button-container">
+                        {oneEntry.postedBy?.username === username && <button onClick={() => handlePublish(oneEntry._id)}>{oneEntry.isPublished ? "Unpublish" : "Publish"}</button>}
+                        {oneEntry.postedBy?.username === username && <button onClick={handleEditMode}>Edit</button>}
+                        {oneEntry.postedBy?.username === username && <button onClick={() => deleteEntry(oneEntry._id)}>Delete</button>}
+                    </div>
+
                 </div>
             }
-
-
         </>
-
     )
 }

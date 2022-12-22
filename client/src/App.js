@@ -12,7 +12,7 @@ import PostedPrompts from './components/PostedPrompts.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
 import SavedPrompts from './components/SavedPrompts.js'
-
+import Footer from './components/Footer.js'
 
 export default function App() {
   const { token, logout } = useContext(UserContext)
@@ -34,13 +34,6 @@ export default function App() {
           <Route path="saved-prompts" element={<SavedPrompts />} />
         </Route>
 
-        {/* <Route
-          path="/profile"
-          element={<ProtectedRoute token={token} redirectTo="/">
-            <Profile />
-          </ProtectedRoute>}
-        /> */}
-
         <Route
           path="/entry/:entryId"
           element={<ProtectedRoute token={token} redirectTo="/">
@@ -54,22 +47,9 @@ export default function App() {
           <Route path="posted-prompts" element={<PostedPrompts />} />
           <Route index element={<PublishedEntries />} />
         </Route>
-        {/* <Route
-          path="/public"
-          element={<ProtectedRoute token={token} redirectTo="/">
-            <Public />
-          </ProtectedRoute>}
-        /> */}
       </Routes>
+
+      <Footer />
     </div>
   )
 }
-
-// // a user's private entries <ProfileEntries />
-// <Route path="/profile-entries" element={} />
-// // a more expanded view of one entry <EntryExpanded />
-// <Route path="/profile-entries/:entryId" element={} />
-// // the full list of published entries <PublicEntries />
-// <Route path="/public-entries" element={} />
-// // the full list of posted prompts <PublicPrompts />
-// <Route path="/public-prompts" element={} />

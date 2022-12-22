@@ -12,15 +12,15 @@ export default function EntryForm(props) {
     const [inputs, setInputs] = useState(initIputs)
     const { addEntry } = props
 
-    function handleChange(e){
-        const {name, value} = e.target
+    function handleChange(e) {
+        const { name, value } = e.target
         setInputs(prevInputs => ({
             ...prevInputs,
             [name]: value
         }))
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
         addEntry(inputs)
         setInputs(initIputs)
@@ -30,28 +30,30 @@ export default function EntryForm(props) {
     const { title, summary, textBody } = inputs
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
+        <form onSubmit={handleSubmit} className="entry-form">
+            <input
                 type="text"
                 name="title"
                 value={title}
                 onChange={handleChange}
                 placeholder="title"
             />
-            <input 
+            <input
                 type="text"
                 name="summary"
                 value={summary}
                 onChange={handleChange}
                 placeholder="summary"
             />
-            <textarea 
+            <textarea
                 name="textBody"
                 value={textBody}
                 onChange={handleChange}
                 placeholder="Start writing..."
             />
-            <button>Add new entry</button>
+            <div>
+                <button>Add new entry</button>
+            </div>
         </form>
     )
 }

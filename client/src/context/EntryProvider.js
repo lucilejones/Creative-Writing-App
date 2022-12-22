@@ -1,8 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import { UserContext } from '../context/UserProvider.js'
 import axios from 'axios'
-
 
 export const EntryContext = React.createContext()
 
@@ -20,18 +18,6 @@ export default function EntryProvider(props) {
     const [postedPrompts, setPostedPrompts] = useState([])
     const [savedPrompts, setSavedPrompts] = useState([])
     const [oneEntry, setOneEntry] = useState(JSON.parse(localStorage.getItem("oneEntry")))
-    
-
-    // const {
-    //     user: {
-    //         username
-    //     } } = useContext(UserContext)
-
-    // function getAllEntries() {
-
-    // }
-
-    
 
     const navigate = useNavigate()
 
@@ -63,8 +49,8 @@ export default function EntryProvider(props) {
         userAxios.put(`/api/entry/publish/${entryId}`)
             .then(res => console.log(res.data))
             .catch(err => console.log(err.response.data.errMsg))
-        navigate("/public")
-        getPublishedEntries()
+        navigate("/profile")
+        getUserEntries()
     }
 
     function deleteEntry(entryId) {
@@ -80,14 +66,7 @@ export default function EntryProvider(props) {
             // .then(res => console.log(res.data))
             .catch(err => console.log(err.response.data.errMsg))
     }
-    // change to res => setOneEntry(res.data)
-
-    // function updateEntry(entryId, update) {
-    //     userAxios.put(`/api/entry/${entryId}`, update)
-    //      .then(setEntries(prevEntries => prevEntries.map(entry => entry._id === entryId ?
-    //         {...entry, title: update.title, textBody: update.textBody} : entry)))
-    // }
-
+ 
     function updateEntry(entryId, update) {
         userAxios.put(`/api/entry/${entryId}`, update)
             .then(res => setOneEntry(prevOneEntry => ({...prevOneEntry, title: update.title, summary: update.summary, textBody: update.textBody})))
