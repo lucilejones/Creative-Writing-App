@@ -110,7 +110,8 @@ ul li {
 .dropdown {
     visibility: hidden;
     opacity: 0;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     padding-left: 0px;
     right: 0px;
     display: none;
