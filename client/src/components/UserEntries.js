@@ -14,7 +14,7 @@ export default function Entries() {
         <>
             <div className="entries-container">
                 <div>
-                    <h3>Your saved entries</h3>
+                    <h3 className='entry-heading'>Your saved entries</h3>
                     <EntryList entries={entries} />
                 </div>
             </div>

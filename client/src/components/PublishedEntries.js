@@ -14,7 +14,7 @@ export default function Public(){
 
     return (
         <div className="entries-container">
-            <h3>All published entries</h3>
+            <h3 className='entry-heading'>All published entries</h3>
             <EntryList entries={entries} />
         </div>
     )

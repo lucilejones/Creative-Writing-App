@@ -15,7 +15,7 @@ export default function PostedPrompts(){
 
     return (
         <div className="prompts-container">
-            <h3>All posted prompts</h3>
+            <h3 className='prompt-heading'>All posted prompts</h3>
             <PostedPromptList postedPrompts={postedPrompts} />
         </div>
     )

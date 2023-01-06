@@ -16,7 +16,7 @@ export default function SavedPrompts(){
 
     return (
         <div className="prompts-container">
-            <h3>Your saved prompts</h3>
+            <h3 className='prompt-heading'>Your saved prompts</h3>
             <SavedPromptList savedPrompts={savedPrompts} />
         </div>
     )

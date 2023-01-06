@@ -45,6 +45,7 @@
 .small-text {
     color: #160404;
     margin-top: 5px;
+    cursor: pointer;
 }
 
 .login-form-container {
@@ -69,6 +70,7 @@ button {
     border: solid 1px #160404;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 img {
@@ -101,7 +103,7 @@ ul li {
     display: inline-block;
     position: relative;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 17px;
     padding: 15px;
     border: 1px solid #323439;
     border-radius: 4px;
@@ -110,14 +112,21 @@ ul li {
 .dropdown {
     visibility: hidden;
     opacity: 0;
-    /* position: absolute; */
-    position: relative;
-    padding-left: 0px;
-    right: 0px;
+    position: absolute;
+    /* position: relative; */
+    /* padding-left: 0px; */
+    /* right: 0px; */
+    /* left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto; */
     display: none;
     background: #323439;
     z-index: 1;
 }
+
+/* .title-link is absolute to make the whole card clickable */
+/* So if .dropdown is absolute, menu items over the card aren't clickable */
 
 li:hover {
     cursor: pointer;
@@ -129,8 +138,12 @@ ul li:hover>ul,
     visibility: visible;
     opacity: 1;
     display: block;
-    min-width: 250px;
-    padding: 5px 10px 5px 10px;
+    min-width: 180px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2px 6px 2px 6px;
     /* font-size: 14px; */
     border-radius: 4px;
     box-shadow: 0px 3px 5px -1px #ccc;
@@ -177,6 +190,12 @@ ul li:hover>ul,
 .prompts-container {
     padding-top: 15px;
     text-align: center;
+}
+
+.entry-heading, .prompt-heading {
+    margin-top: 150px;
+    padding-top: 8px;
+    border-top: 1px solid #323439;
 }
 
 .saved-entry,

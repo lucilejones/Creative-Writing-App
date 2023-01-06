@@ -23,7 +23,6 @@ export default function Entry(props) {
         setExpandedId(prevExpandedId => !prevExpandedId)
     }
 
-
     return (
         <div className="saved-entry">
             <Link to={`/entry/${_id}`} onClick={() => expandToOneEntry(_id)} className="title-link">{title}</Link>
@@ -35,3 +34,6 @@ export default function Entry(props) {
         </div>
     )
 }
+
+
+
