@@ -132,7 +132,8 @@ export default function EntryProvider(props) {
                 saveAPostedPrompt,
                 savedPrompts,
                 getUserSavedPrompts,
-                deleteSavedPrompt
+                deleteSavedPrompt,
+                userAxios
             }}
         >
             {props.children}
