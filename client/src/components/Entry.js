@@ -2,8 +2,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { EntryContext } from '../context/EntryProvider.js'
 import { UserContext } from '../context/UserProvider.js'
-// import CommentForm
-// import CommentList
 
 export default function Entry(props) {
     const { title, summary, postedBy, isPublished, _id } = props

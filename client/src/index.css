@@ -113,13 +113,6 @@ ul li {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    /* position: relative; */
-    /* padding-left: 0px; */
-    /* right: 0px; */
-    /* left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto; */
     display: none;
     background: #323439;
     z-index: 1;
@@ -127,6 +120,7 @@ ul li {
 
 /* .title-link is absolute to make the whole card clickable */
 /* So if .dropdown is absolute, menu items over the card aren't clickable */
+/* made space under the dropdown */
 
 li:hover {
     cursor: pointer;
@@ -275,7 +269,7 @@ ul li:hover>ul,
 .button-container {
     display: flex;
     justify-content: space-around;
-    margin: 25px 35px 0px 35px;
+    margin: 25px 35px 25px 35px;
 }
 
 .profile-form-container,
@@ -306,12 +300,37 @@ ul li:hover>ul,
     border-bottom: 1px solid #160404;
 }
 
-textarea {
+.entry-form textarea {
     height: 270px;
     margin-bottom: 10px;
     border: 1px solid;
     border-radius: 4px;
     padding: 10px;
+}
+
+.comment-form textarea {
+    height: 100px;
+    width: 210px;
+    margin-bottom: 10px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comment-container {
+    margin-top: 10px;
+    border-top: 1px solid #323439;
+    min-width: 75vw;
+}
+
+.comment-text {
+    padding: 5px;
 }
 
 .footer {
@@ -347,6 +366,18 @@ textarea {
 
     .profile-form-container {
         padding: 55px;
+    }
+
+    .comment-form textarea {
+        width: 300px;
+    }
+
+    .comment-container {
+        margin-top: 25px;
+    }
+
+    .comment-text {
+        padding: 10px;
     }
 }
 
@@ -388,6 +419,10 @@ textarea {
         margin-right: 80px;
         margin-left: 80px;
     }
+
+    .comment-form textarea {
+        width: 400px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -417,6 +452,11 @@ textarea {
     .profile-form-container {
         padding-right: 75px;
         padding-left: 75px;
+    }
+
+    .comment-form textarea {
+        width: 500px;
+        height: 200px;
     }
 }
 

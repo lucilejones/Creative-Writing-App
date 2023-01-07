@@ -1,12 +1,25 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { EntryContext } from '../context/EntryProvider'
 import { UserContext } from '../context/UserProvider'
+import CommentForm from './CommentForm'
+import CommentList from './CommentList'
 
 export default function () {
+    // const { title, summary, postedBy, _id } = props
     const [editMode, setEditMode] = useState(false)
-    const { oneEntry, expandedId, togglePublishEntry, updateEntry, getEntryDetails, deleteEntry } = useContext(EntryContext)
-    console.log(oneEntry, "does this recognize oneEntry")
+    const {
+        oneEntry,
+        expandedId,
+        togglePublishEntry,
+        updateEntry,
+        getEntryDetails,
+        deleteEntry,
+        userAxios } = useContext(EntryContext)
+    // console.log(oneEntry, "does this recognize oneEntry")
     const [updatedEntry, setUpdatedEntry] = useState(oneEntry)
+
+    const [commentToggle, setCommentToggle] = useState(false)
+    const [comments, setComments] = useState([])
 
     const {
         user: {
@@ -44,6 +57,34 @@ export default function () {
         updateEntry(oneEntry._id, updatedEntry)
         setEditMode(prevEditMode => !prevEditMode)
         getEntryDetails(oneEntry._id)
+    }
+
+    function commentButton(entryId) {
+        getCommentsByEntry(entryId)
+        setCommentToggle(prevState => !prevState)
+    }
+
+    function getCommentsByEntry(entryId) {
+        userAxios.get(`/api/comment/${entryId}`)
+            .then(res => {
+                setComments(res.data)
+            })
+            .catch(err => console.log(err.respons.data.errMsg))
+    }
+
+    function addComment(entryId, newComment) {
+        // console.log(newComment)
+        userAxios.post(`/api/comment/${entryId}`, newComment)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err.response.data.errMsg))
+        getCommentsByEntry(entryId)
+    }
+
+    function deleteComment(commentId) {
+        userAxios.delete(`/api/comment/${commentId}`)
+            .then(res => console.log(res))
+            .then(res => setComments(prevComments => prevComments.filter(comment => comment._id !== commentId)))
+            .catch(err => console.log(err.response.data.errMsg))
     }
 
     return (
@@ -86,8 +127,13 @@ export default function () {
                         {oneEntry.postedBy?.username === username && <button onClick={() => handlePublish(oneEntry._id)}>{oneEntry.isPublished ? "Unpublish" : "Publish"}</button>}
                         {oneEntry.postedBy?.username === username && <button onClick={handleEditMode}>Edit</button>}
                         {oneEntry.postedBy?.username === username && <button onClick={() => deleteEntry(oneEntry._id)}>Delete</button>}
+                        <button onClick={() => commentButton(oneEntry._id)}>{commentToggle ? "Hide Comments" : "Show Comments"}</button>
                     </div>
-
+                    {commentToggle && <CommentForm
+                        addComment={addComment}
+                        _id={oneEntry._id}
+                    />}
+                    {commentToggle && <CommentList comments={comments} deleteComment={deleteComment} />}
                 </div>
             }
         </>
