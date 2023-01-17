@@ -4,18 +4,17 @@ import { UserContext } from '../context/UserProvider'
 import CommentForm from './CommentForm'
 import CommentList from './CommentList'
 
-export default function () {
-    // const { title, summary, postedBy, _id } = props
+export default function ExpandedEntry() {
+
     const [editMode, setEditMode] = useState(false)
     const {
         oneEntry,
-        expandedId,
         togglePublishEntry,
         updateEntry,
         getEntryDetails,
         deleteEntry,
         userAxios } = useContext(EntryContext)
-    // console.log(oneEntry, "does this recognize oneEntry")
+
     const [updatedEntry, setUpdatedEntry] = useState(oneEntry)
 
     const [commentToggle, setCommentToggle] = useState(false)
@@ -28,12 +27,11 @@ export default function () {
     } = useContext(UserContext)
 
     useEffect(() => {
-        return () => {
-            localStorage.setItem("oneEntry", JSON.stringify(oneEntry))
-        }
-    }, [expandedId])
+        localStorage.setItem("oneEntry", JSON.stringify(oneEntry))
+    }, [])
 
     useEffect(() => {
+        const oneEntry = JSON.parse(localStorage.getItem('oneEntry'));
         getEntryDetails(oneEntry._id)
     }, [])
 
@@ -73,7 +71,7 @@ export default function () {
     }
 
     function addComment(entryId, newComment) {
-        // console.log(newComment)
+ 
         userAxios.post(`/api/comment/${entryId}`, newComment)
             .then(res => console.log(res.data))
             .catch(err => console.log(err.response.data.errMsg))
